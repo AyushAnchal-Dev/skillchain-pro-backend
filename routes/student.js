@@ -60,4 +60,4 @@ router.post('/update-status', (req, res) => {
   res.status(404).json({ error: 'Submission not found.' });
 });
 
-export default router
+export default router;
