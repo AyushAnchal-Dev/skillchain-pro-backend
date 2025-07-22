@@ -1,22 +1,19 @@
 {
+  "name": "skillchain-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "name": "skillchain-pro",
-  "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "prebuild": "npm run prebuild --workspaces --if-present",
-    "pretest": "npm run prebuild --workspaces --if-present",
-    "start": "node server.js",
-    "test": "npm test --workspaces --if-present"
-  },
-  "type": "module",
- 
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "body-parser": "^2.2.0",
     "uuid": "^11.1.0"
   }
 }
