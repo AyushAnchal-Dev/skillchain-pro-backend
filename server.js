@@ -15,7 +15,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type'],
   credentials: true,
 }));
-router.use(cors());
+
 app.use(express.json());
 app.use(bodyParser.json());
 
