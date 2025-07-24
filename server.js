@@ -9,43 +9,45 @@ import verifierRoutes from './routes/verifier.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Define your allowed frontend domains here
+// ✅ Add ICP deployed frontend URLs here
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'http://bd3sg-teaaa-aaaaa-qaaba-cai.localhost:4943'  // 🔁 Replace with your real deployed frontend ICP URL
+  'https://bd3sg-teaaa-aaaaa-qaaba-cai.icp0.io',  // Deployed ICP frontend URL
+  'https://icp0.io',
+  'https://*.icp0.io',
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || origin.endsWith('.icp0.io')) {
       return callback(null, true);
     } else {
+      console.log('❌ CORS blocked for origin:', origin);
       return callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
 }));
 
-// ✅ Optional: Allow preflight OPTIONS
+// ✅ Allow preflight OPTIONS
 app.options('*', cors());
 
 // ✅ Middleware
 app.use(express.json());
 app.use(bodyParser.json());
 
-// ✅ Mount routes
+// ✅ Routes
 app.use('/api/recruiter', recruiterRoutes);
 app.use('/api/student', studentRoutes);
 app.use('/api/verifier', verifierRoutes);
 
-// ✅ Default route
+// ✅ Health check
 app.get('/', (req, res) => {
-  res.send('SkillChain Backend is running ✅');
+  res.send('✅ SkillChain Backend is running');
 });
 
 // ✅ Start server
